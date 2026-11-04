@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رَفُّنَا | رفّك الرقمي هنا</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* الألوان الأساسية */
+        :root { 
+            --bg-color: #FAF9F6; 
+            --primary: #2A1B41; 
+            --gold: #F4C430; 
+            --text-dark: #333333; 
+            --text-light: #666666; 
+            --card-bg: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); line-height: 1.8; }
+
+        /* الهيدر (القائمة العلوية) */
+        header { 
+            background-color: var(--bg-color); 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid #E8DFC8; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .logo { font-family: 'Tajawal', sans-serif; font-size: 30px; font-weight: 800; color: var(--primary); }
+        .logo i { color: var(--gold); margin-right: 8px; }
+        nav a { text-decoration: none; color: var(--text-dark); margin: 0 15px; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        .cart-icon { font-size: 22px; color: var(--primary); cursor: pointer; }
+
+        /* قسم الترحيب */
+        .hero { text-align: center; padding: 60px 20px; background: linear-gradient(180deg, var(--bg-color) 0%, #F3ECE2 100%); }
+        .hero h1 { font-family: 'Tajawal', sans-serif; font-size: 42px; color: var(--primary); margin-bottom: 15px; font-weight: 800; }
+        .hero p { font-size: 18px; color: var(--text-light); max-width: 650px; margin: 0 auto 30px; }
+        
+        .trust-badges { 
+            display: inline-flex; 
+            gap: 25px; 
+            background: #fff; 
+            padding: 12px 30px; 
+            border-radius: 50px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            font-weight: 600; 
+            color: var(--primary); 
+        }
+        .trust-badges i { color: var(--gold); margin-left: 5px; }
+
+        /* شبكة المنتجات (الكتب) */
+        .store-container { max-width: 1200px; margin: 50px auto; padding: 0 5%; }
+        .section-title { text-align: center; font-family: 'Tajawal', sans-serif; font-size: 30px; color: var(--primary); margin-bottom: 40px; font-weight: 800; }
+        
+        .products-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+        }
+
+        /* بطاقة المنتج */
+        .product-card { 
+            background: var(--card-bg); 
+            border-radius: 15px; 
+            padding: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+            border: 1px solid #E8DFC8;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+
+        .book-image-container { 
+            background: #F8F6F3; 
+            border-radius: 10px; 
+            padding: 25px; 
+            display: flex; 
+            justify-content: center; 
+            margin-bottom: 20px;
+        }
+        .book-cover { 
+            width: 100%; 
+            max-width: 220px; 
+            border-radius: 5px; 
+            box-shadow: -5px 10px 20px rgba(0,0,0,0.15); 
+            transform: rotate(-3deg);
+            transition: 0.3s;
+        }
+        .product-card:hover .book-cover { transform: scale(1.05) rotate(0deg); }
+
+        .product-title { font-family: 'Tajawal', sans-serif; font-size: 24px; color: var(--primary); margin-bottom: 10px; font-weight: 800; }
+        .price-tag { font-size: 20px; color: var(--primary); font-weight: 800; background: var(--gold); padding: 2px 15px; border-radius: 6px; display: inline-block; align-self: flex-start; margin-bottom: 15px; }
+        .description { font-size: 15px; color: var(--text-light); margin-bottom: 15px; flex-grow: 1; }
+        
+        .features { list-style: none; margin-bottom: 20px; }
+        .features li { font-size: 14px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .features i { color: var(--gold); }
+
+        /* زر الشراء */
+        .buy-btn { 
+            display: block; 
+            width: 100%; 
+            background-color: var(--primary); 
+            color: white; 
+            text-align: center; 
+            padding: 15px; 
+            font-size: 18px; 
+            font-weight: 700; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        .buy-btn:hover { background-color: #180f26; }
+        .buy-btn i { margin-right: 8px; font-size: 20px; }
+
+        /* طرق الدفع */
+        .payment-methods { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #E8DFC8; }
+        .payment-methods span { font-size: 13px; color: var(--text-light); font-weight: 600; }
+        .payment-icon { font-size: 22px; color: #555; }
+        .mada-badge { background-color: #000; color: #fff; font-family: Arial, sans-serif; font-weight: bold; font-size: 11px; padding: 2px 6px; border-radius: 4px; display: inline-block; }
+        .mada-text { color: #00A3E0; }
+        .note { font-size: 12px; color: #888; text-align: center; margin-top: 10px; }
+
+        /* الفوتر */
+        footer { background-color: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; }
+        .footer-logo { font-family: 'Tajawal', sans-serif; font-size: 24px; font-weight: 800; color: var(--gold); margin-bottom: 15px; }
+        .footer-contact { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; font-size: 15px; }
+        .footer-contact i { color: var(--gold); margin-left: 5px; }
+        .copyright { font-size: 13px; color: #aaa; }
+
+        /* زر واتساب العائم */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .whatsapp-float:hover { background-color: #128C7E; transform: scale(1.1); }
+
+        /* التجاوب مع الجوال */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; }
+            nav { display: none; }
+            .hero h1 { font-size: 30px; }
+            .trust-badges { flex-direction: column; gap: 10px; border-radius: 15px; padding: 15px; }
+            .products-grid { grid-template-columns: 1fr; }
+            .footer-contact { flex-direction: column; gap: 10px; }
+            .whatsapp-float { width: 50px; height: 50px; font-size: 30px; bottom: 20px; left: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header>
+        <div class="logo"><i class="fa-solid fa-book-open"></i> رَفُّنَا</div>
+        <nav>
+            <a href="#">الرئيسية</a>
+            <a href="#store">المتجر</a>
+            <a href="#footer">تواصل معنا</a>
+        </nav>
+        <i class="fa-solid fa-cart-shopping cart-icon"></i>
+    </header>
+
+    <!-- قسم الترحيب -->
+    <section class="hero">
+        <h1>رفّك الرقمي هنا</h1>
+        <p>جمعنا لك ملفات وكتباً إلكترونية مختارة بعناية لتكون مرجعك الدافئ ومساحتك الخاصة للمعرفة.</p>
+        <div class="trust-badges">
+            <span><i class="fa-solid fa-bolt"></i> تحميل فوري</span>
+            <span><i class="fa-solid fa-lock"></i> دفع آمن</span>
+            <span><i class="fa-solid fa-mobile-screen"></i> قراءة على كل الأجهزة</span>
+        </div>
+    </section>
+
+    <!-- المتجر -->
+    <section class="store-container" id="store">
+        <h2 class="section-title">مكتبتك الرقمية</h2>
+        
+        <div class="products-grid">
+            
+            <!-- المنتج الأول -->
+            <div class="product-card">
+                <div class="book-image-container">
+                    <img src="https://i.ibb.co/jk1s02Qd/photo-6008343193805590304-y.jpg" alt="كيف يقتل الإنسان إبداعه" class="book-cover">
+                </div>
+                <h3 class="product-title">كيف يقتل الإنسان إبداعه؟</h3>
+                <div class="price-tag">25 ر.س</div>
+                <p class="description">
+                    هل تشعر أن شغفك يتلاشى؟ دليل بصري يغوص في الأسباب الخفية التي تقتل إبداعك، ويقدم لك حلولاً عملية بخطوات بسيطة.
+                </p>
+                <ul class="features">
+                    <li><i class="fa-solid fa-check-circle"></i> تشخيص واضح للأسباب.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> تمرين تفاعلي لاستعادة الأفكار.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> روتين يومي بسيط.</li>
+                </ul>
+                <button class="buy-btn" onclick="buyNow('كيف يقتل الإنسان إبداعه', 25)">اشترِ وحمّل <i class="fa-brands fa-whatsapp"></i></button>
+            </div>
+
+            <!-- المنتج الثاني -->
+            <div class="product-card">
+                <div class="book-image-container">
+                    <img src="https://i.ibb.co/3947htn8/photo-6008343193805590407-x.jpg" alt="حدودك الشخصية" class="book-cover">
+                </div>
+                <h3 class="product-title">حدودك الشخصية</h3>
+                <div class="price-tag">25 ر.س</div>
+                <p class="description">
+                    هل تعبت من كلمة "نعم"؟ ملف بسيط وخفيف يعلمك كيف تحمي وقتك، وتحافظ على طاقتك، وتقول "لا" بدون أي شعور بالذنب.
+                </p>
+                <ul class="features">
+                    <li><i class="fa-solid fa-check-circle"></i> إيش معنى حدود شخصية ببساطة.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> علامات تدل إنك تحتاج حدود.</li>
+                    <li><i class="fa-solid fa-check-circle"></i> 3 عبارات جاهزة للرفض المهذب.</li>
+                </ul>
+                <button class="buy-btn" onclick="buyNow('حدودك الشخصية', 25)">اشترِ وحمّل <i class="fa-brands fa-whatsapp"></i></button>
+            </div>
+
+        </div>
+
+        <!-- طرق الدفع -->
+        <div style="text-align: center; margin-top: 50px;">
+            <div class="payment-methods">
+                <span>طرق دفع آمنة:</span>
+                <span class="mada-badge"><span class="mada-text">mada</span> مدى</span>
+                <i class="fa-brands fa-cc-visa payment-icon"></i>
+                <i class="fa-brands fa-cc-mastercard payment-icon"></i>
+                <i class="fa-brands fa-apple-pay payment-icon" style="font-size: 28px;"></i>
+            </div>
+            <p class="note">ملفات رقمية PDF تصلك فوراً بعد تأكيد الدفع.</p>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="footer">
+        <div class="footer-logo">رَفُّنَا</div>
+        <div class="footer-contact">
+            <span><i class="fa-solid fa-envelope"></i> raffna33@gmail.com</span>
+            <span><i class="fa-solid fa-phone"></i> 0539915088</span>
+        </div>
+        <p class="copyright">© 2025 رَفُّنَا. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- زر الواتساب العائم (يظهر دائماً في زاوية الشاشة) -->
+    <a href="https://wa.me/966539915088" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- كود الجافاسكريبت -->
+    <script>
+        function buyNow(bookName, price) {
+            var phone = "966539915088"; 
+            var message = "مرحباً رَفُّنَا، أرغب في شراء كتاب (" + bookName + ") بسعر " + price + " ريال. أرجو تزويدي بتفاصيل الدفع.";
+            var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
